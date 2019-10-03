@@ -1,0 +1,16 @@
+﻿{% extends 'bootstrap/base.html' %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet"
+      href="{{url_for('.static', filename='estilos.css')}}">
+{% endblock %}
+
+{% block title %}
+    {% if title %}{{title}} - Unia11y{% else %}Unia11y{% endif %}
+{% endblock %}
+{% block navbar %}
+<nav class="navbar navbar-inverse"><div class="lead titulo-enfasis">Unia11y</div></nav>
+{% endblock %}
+{% block content %}
+{% endblock %}
