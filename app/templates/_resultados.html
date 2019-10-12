@@ -1,0 +1,22 @@
+<table class="table ">
+  <colgroup>
+			<col style="width:40px">
+			<col style="width:40px">
+	</colgroup>
+  <thead>
+    <tr>
+      <th scope="col">Criterio</th>
+      <th scope="col">Error</th>
+    </tr>
+  </thead>
+  <tbody>
+   {% for resultado in resultados %}
+     {% for elemento in resultado.resultados %}
+      <tr>
+            <th scope="row">{{ resultado.descripcion }}</th>
+            <td>  {{elemento}} </td>
+      </tr>
+      {% endfor %}
+    {% endfor %}
+  </tbody>
+</table>

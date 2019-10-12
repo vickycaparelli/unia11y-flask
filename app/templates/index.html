@@ -3,9 +3,12 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block content %}
-<section class="row">
-    <div class="col-md-4">
-        {{ wtf.quick_form(form) }}
-    </div>
+<section class="container">
+  {{ wtf.quick_form(form) }}
 </section>
+<div class="table-responsive">
+  {% if resultados%}
+    {% include '_resultados.html' %}
+  {% endif %}
+</div>
 {% endblock %}

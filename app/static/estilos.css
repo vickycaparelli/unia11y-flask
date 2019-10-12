@@ -1,11 +1,14 @@
-section {
-    height: 100%;
-    width: 100%;
-    margin: 2%;
-    padding: 2%;
+html{
+    margin:0;
+    padding:0;
+}
+nav{
+    height: 8%;
 }
 .titulo-enfasis{
     color: #ffffff;
     font-weight: 400;
 }
-
+.table{
+  margin:2%;
+}
