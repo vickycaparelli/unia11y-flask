@@ -5,5 +5,3 @@ class ParseoHelper(object):
     @staticmethod
     def ObtenerElementos(contenidoHtml, listaElementos):
         return contenidoHtml.find_all(listaElementos)
-   
-

@@ -1,22 +1,30 @@
 <table class="table ">
   <colgroup>
+			<col style="width:50px">
 			<col style="width:40px">
-			<col style="width:40px">
+      <col style="width:30px">
+      <col style="width:20px">
 	</colgroup>
   <thead>
     <tr>
       <th scope="col">Criterio</th>
       <th scope="col">Error</th>
+      <th scope="col">Código</th>
+      <th scope="col">Tipo</th>
     </tr>
   </thead>
   <tbody>
+
    {% for resultado in resultados %}
-     {% for elemento in resultado.resultados %}
+     {% for elemento in resultado.elementos %}
       <tr>
             <th scope="row">{{ resultado.descripcion }}</th>
+            <td>  {{resultado.error}} </td>
             <td>  {{elemento}} </td>
-      </tr>
+            <td>  {{resultado.tipo}} </td>
+        </tr>
       {% endfor %}
     {% endfor %}
+
   </tbody>
 </table>

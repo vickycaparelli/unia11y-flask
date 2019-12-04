@@ -5,7 +5,9 @@ from app.models import Guia, Criterio
 import requests
 from bs4 import BeautifulSoup
 from app.controller.parsers.ParseoHelper import ParseoHelper
-from app.controller.verificacion.VerificacionCriterio01 import VerificacionCriterio01
+from app.controller.verificacion.validacionTextoAlternativo import validacionTextoAlternativo
+from app.controller.verificacion.validacionInputName import validacionInputName
+from app.controller.verificacion.validacionAlternativasMultimedia import validacionAlternativasMultimedia
 from app.controller.reglas import WCAGReglas
 
 
@@ -21,15 +23,30 @@ def index():
         # Parsear HTML y guardar como Objeto BeautifulSoup
         contenidoHTML = BeautifulSoup(respuesta.text, "html.parser")
 
-        # Criterio 1- Controlo textos alternativos para elementos que no sean de tipo texto
-
-        for regla in WCAGReglas.dictWCAG2A_1:
+        # Criterio 1.1- Falta texto alternativo
             #Parsea elementos
-            elementos = ParseoHelper.ObtenerElementos(contenidoHTML, WCAGReglas.dictWCAG2A_1[regla][1])
-
+        elementos = ParseoHelper.ObtenerElementos(contenidoHTML, WCAGReglas.dictWCAG2A_1_ReglasChecks["1.1.1"][2])
             #Verifico regla y guardo el resultado
-            resultado_parcial = VerificacionCriterio01.Verificar(elementos, regla, WCAGReglas.dictWCAG2A_1)
-
+        resultado_parcial = validacionTextoAlternativo.Verificar(elementos, "1.1.1", WCAGReglas.dictWCAG2A_1_ReglasChecks)
             #Agrego resultado a la lista de fallas
-            resultados.append(resultado_parcial)
+        resultados.append(resultado_parcial)
+
+        # Criterio 1.1- Los inputs deben tener un nombre que describa su propósito
+            #Parsea elementos
+        elementos = ParseoHelper.ObtenerElementos(contenidoHTML, WCAGReglas.dictWCAG2A_1_ReglasChecks["1.1.2"][2])
+            #Verifico regla y guardo el resultado
+        resultado_parcial = validacionInputName.Verificar(elementos, "1.1.2", WCAGReglas.dictWCAG2A_1_ReglasChecks)
+            #Agrego resultado a la lista de fallas
+        resultados.append(resultado_parcial)
+
+        # Criterio 1.2- Identificar elementos multimedia para validacion manual
+            #Parsea elementos
+        elementos = ParseoHelper.ObtenerElementos(contenidoHTML, WCAGReglas.dictWCAG2A_1_ReglasChecks["1.2"][2])
+            #Verifico regla y guardo el resultado
+        resultado_parcial = validacionAlternativasMultimedia.Verificar(elementos, "1.2", WCAGReglas.dictWCAG2A_1_ReglasChecks)
+            #Agrego resultado a la lista de fallas
+        resultados.append(resultado_parcial)
+
+
+
     return render_template('index.html', title='Inicio', form=form,resultados=resultados)
